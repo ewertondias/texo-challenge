@@ -2,12 +2,12 @@ package com.texo.goldenraspberryawards.infrastructure.configuration.data;
 
 import com.texo.goldenraspberryawards.domain.award.model.Award;
 import com.texo.goldenraspberryawards.domain.award.repository.AwardRepository;
+import com.texo.goldenraspberryawards.domain.exception.LoadDataErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ResourceLoader;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -24,15 +24,11 @@ public class LoadDataConfig {
 
 	private final AwardRepository awardRepository;
 
-	private ResourceLoader resourceLoader;
-
-
 	@Value("${movelist-csv}")
 	private String movielistCsv;
 
-	public LoadDataConfig(AwardRepository awardRepository, ResourceLoader resourceLoader) {
+	public LoadDataConfig(AwardRepository awardRepository) {
 		this.awardRepository = awardRepository;
-		this.resourceLoader = resourceLoader;
 	}
 
 	@PostConstruct
@@ -69,8 +65,7 @@ public class LoadDataConfig {
 		} catch (IOException ex) {
 			log.error("Erro ao carregar dados: {}", ex.getMessage());
 
-			// throw new LoadDataErrorException("Erro ao carregar dados: " + ex.getMessage());
-			throw new RuntimeException(ex.getMessage());
+			throw new LoadDataErrorException("Erro ao carregar dados: " + ex.getMessage());
 		}
 
 	}
