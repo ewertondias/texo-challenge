@@ -8,6 +8,6 @@ public interface AwardRepository {
 
 	List<Award> saveAll(final List<Award> award);
 
-	List<Award> findAll();
+	List<Award> findAllWinners();
 
 }

@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.4</version>
+		<version>2.7.9</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.texo</groupId>
@@ -15,9 +15,10 @@
 	<description>Texo challenge project - Golden Raspberry Awards</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<commons-csv.version>1.10.0</commons-csv.version>
 		<modelmapper.version>3.1.1</modelmapper.version>
+		<springfox.version>3.0.0</springfox.version>
 	</properties>
 
 	<dependencies>
@@ -66,6 +67,12 @@
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
 			<version>${modelmapper.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>${springfox.version}</version>
 		</dependency>
 	</dependencies>
 

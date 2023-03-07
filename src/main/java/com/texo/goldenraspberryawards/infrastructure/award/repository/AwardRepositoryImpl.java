@@ -33,8 +33,11 @@ public class AwardRepositoryImpl implements AwardRepository {
 	}
 
 	@Override
-	public List<Award> findAll() {
-		return null;
+	public List<Award> findAllWinners() {
+		return awardRepositoryJpa.findAllByWinner("yes")
+			.stream()
+			.map(awardEntityAssembler::toModel)
+			.collect(Collectors.toList());
 	}
 
 }

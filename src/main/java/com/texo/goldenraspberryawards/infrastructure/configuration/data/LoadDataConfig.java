@@ -2,12 +2,12 @@ package com.texo.goldenraspberryawards.infrastructure.configuration.data;
 
 import com.texo.goldenraspberryawards.domain.award.model.Award;
 import com.texo.goldenraspberryawards.domain.award.repository.AwardRepository;
-import jakarta.annotation.PostConstruct;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ResourceUtils;
 
+import javax.annotation.PostConstruct;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
