@@ -5,6 +5,7 @@ import com.texo.goldenraspberryawards.application.award.dto.GetProducerAwardMinM
 import com.texo.goldenraspberryawards.domain.award.GetProducerAwardIntervalUseCase;
 import com.texo.goldenraspberryawards.domain.award.model.Award;
 import com.texo.goldenraspberryawards.domain.award.repository.AwardRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class GetProducerAwardIntervalService implements GetProducerAwardIntervalUseCase {
 
@@ -23,6 +25,8 @@ public class GetProducerAwardIntervalService implements GetProducerAwardInterval
 
 	@Override
 	public GetProducerAwardMinMaxResponseDto handle() {
+		log.info("Iniciando busca por produtor com intervalos mínimo e máximo");
+
 		var producersWinner = awardRepository.findAllWinners();
 
 		var producersWinnerByYear = producersWinner.stream()

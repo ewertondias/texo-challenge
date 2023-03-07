@@ -2,8 +2,11 @@ package com.texo.goldenraspberryawards.infrastructure.configuration.data;
 
 import com.texo.goldenraspberryawards.domain.award.model.Award;
 import com.texo.goldenraspberryawards.domain.award.repository.AwardRepository;
+import com.texo.goldenraspberryawards.domain.exception.LoadDataErrorException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ResourceUtils;
 
@@ -14,6 +17,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Configuration
 public class LoadDataConfig {
 
@@ -21,14 +25,19 @@ public class LoadDataConfig {
 
 	private final AwardRepository awardRepository;
 
+	@Value("${movelist-csv}")
+	private String movielistCsv;
+
 	public LoadDataConfig(AwardRepository awardRepository) {
 		this.awardRepository = awardRepository;
 	}
 
 	@PostConstruct
 	public void loadCsvData() {
+		log.info("Iniciando carregamento de dados no banco");
+
 		try {
-			Reader file = new FileReader(ResourceUtils.getFile("classpath:movielist.csv"));
+			Reader file = new FileReader(ResourceUtils.getFile("classpath:" + movielistCsv));
 
 			CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
 				.setHeader(AwardHeadersEnum.class)
@@ -54,7 +63,9 @@ public class LoadDataConfig {
 
 			awardRepository.saveAll(awards);
 		} catch (IOException ex) {
-			System.out.println(ex);
+			log.error("Erro ao carregar dados: {}", ex.getMessage());
+
+			throw new LoadDataErrorException("Erro ao carregar dados: " + ex.getMessage());
 		}
 
 	}
