@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.texo</groupId>
 	<artifactId>golden-raspberry-awards</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>golden-raspberry-awards</name>
 	<description>Texo challenge project - Golden Raspberry Awards</description>
 
