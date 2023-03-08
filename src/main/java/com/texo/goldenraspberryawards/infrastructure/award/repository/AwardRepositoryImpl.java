@@ -6,7 +6,6 @@ import com.texo.goldenraspberryawards.infrastructure.award.assembler.AwardEntity
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class AwardRepositoryImpl implements AwardRepository {
@@ -23,13 +22,13 @@ public class AwardRepositoryImpl implements AwardRepository {
 	public List<Award> saveAll(List<Award> awards) {
 		var awardsEntities = awards.stream()
 			.map(awardEntityAssembler::toEntity)
-			.collect(Collectors.toList());
+			.toList();
 
 		var awardsSaved = awardRepositoryJpa.saveAll(awardsEntities);
 
 		return awardsSaved.stream()
 			.map(awardEntityAssembler::toModel)
-			.collect(Collectors.toList());
+			.toList();
 	}
 
 	@Override
@@ -37,7 +36,7 @@ public class AwardRepositoryImpl implements AwardRepository {
 		return awardRepositoryJpa.findAllByWinner("yes")
 			.stream()
 			.map(awardEntityAssembler::toModel)
-			.collect(Collectors.toList());
+			.toList();
 	}
 
 }
